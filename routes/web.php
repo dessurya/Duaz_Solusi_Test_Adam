@@ -18,4 +18,7 @@ Route::post('/konsumen/simpan', 'ActionController@konsumenSimpan')->name('konsum
 Route::get('/konsumen/lihat/{id}', 'ActionController@konsumenLihat')->name('konsumen.lihat');
 Route::get('/konsumen/hapus/{id}', 'ActionController@konsumenHapus')->name('konsumen.hapus');
 
-Route::get('/tarnsaksi', 'ActionController@tarnsaksi')->name('transaksi.index');
+Route::get('/transaksi', 'ActionController@transaksi')->name('transaksi.index');
+Route::get('/transaksi/tambah', 'ActionController@transaksiTambah')->name('transaksi.tambah');
+Route::post('/transaksi/simpan', 'ActionController@transaksiSimpan')->name('transaksi.simpan');
+Route::get('/transaksi/lihat/{id}', 'ActionController@transaksiLihat')->name('transaksi.lihat');

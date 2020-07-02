@@ -13,9 +13,9 @@
 </div>
 @endif
 <div class="x_panel">
-	<form method="post" action="{{ route('konsumen.simpan') }}">
+	<form method="post" action="{{ route('transaksi.simpan') }}">
 		<div class="x_title">
-			<h3 align="center">Form Konsumen {{ empty($data) ? 'Tambah' : 'Lihat & Ubah' }}</h3>
+			<h3 align="center">Form Transaksi {{ empty($data) ? 'Tambah' : 'Lihat & Ubah' }}</h3>
 			<input type="hidden" name="id" value="{{ !empty($data) ? $data->id : ''  }}">
 			{{ csrf_field() }}
 			<div class="clearfix"></div>
@@ -24,29 +24,9 @@
 			<div class="row">
 				<div class="col-sm-6">
 					<div class="form-group">
-						Konsumen
-						<input 
-							required
-							name="konsumen"
-							type="text" 
-							value="{{ !empty($data) ? $data->konsumen : '' }}" 
-							class="form-control">
-					</div>
-				</div>
-				<div class="col-sm-6">
-					<div class="form-group">
-						Jenis Kendaraan
-						<select name="jenis_kendaraan" class="form-control">
-							<option value="motor" {{ !empty($data) and $data->jenis_kendaraan == 'motor' ? 'checked' : '' }}>Motor</option>
-							<option value="mobil" {{ !empty($data) and $data->jenis_kendaraan == 'mobil' ? 'checked' : '' }}>mobil</option>
-						</select>
-					</div>
-				</div>
-				<div class="col-sm-6">
-					<div class="form-group">
 						No Polisi
-						<input 
-							required
+						<input  
+							{{ empty($data) ? 'required' : 'readonly' }}
 							name="no_polisi"
 							type="text" 
 							value="{{ !empty($data) ? $data->no_polisi : '' }}" 
@@ -55,39 +35,57 @@
 				</div>
 				<div class="col-sm-6">
 					<div class="form-group">
-						Tanggal Lahir
+						Tanggal Transaksi
 						<input 
-							required
-							name="tgl_lahir"
+							{{ empty($data) ? 'required' : 'readonly' }}
+							name="tgl_masuk"
 							type="date" 
-							value="{{ !empty($data) ? $data->tgl_lahir : '' }}" 
+							value="{{ !empty($data) ? $data->tgl_masuk : date('Y-m-d') }}" 
 							class="form-control">
 					</div>
 				</div>
 				<div class="col-sm-6">
 					<div class="form-group">
-						Jenis Kelamin
-						<select name="jenis_kelamin" class="form-control">
-							<option value="L" {{ !empty($data) and $data->jenis_kelamin == 'L' ? 'checked' : '' }}>L</option>
-							<option value="P" {{ !empty($data) and $data->jenis_kelamin == 'P' ? 'checked' : '' }}>P</option>
-						</select>
+						Waktu Masuk
+						<input 
+							{{ empty($data) ? 'required' : 'readonly' }}
+							name="waktu_masuk"
+							type="time" 
+							value="{{ !empty($data) ? $data->waktu_masuk : '' }}" 
+							class="form-control">
 					</div>
 				</div>
 				<div class="col-sm-6">
 					<div class="form-group">
-						No Hp
+						Waktu Keluar
 						<input 
+							@if(empty($data) or !empty($data->biaya) )
+							readonly
+							@elseif(!empty($data))
 							required
-							name="no_hp"
+							@endif
+							name="waktu_keluar"
+							type="time" 
+							value="{{ !empty($data) ? $data->waktu_keluar : '' }}" 
+							class="form-control">
+					</div>
+				</div>
+				<div class="col-sm-6">
+					<div class="form-group">
+						Biaya
+						<input 
+							readonly 
 							type="text" 
-							value="{{ !empty($data) ? $data->no_hp : '' }}" 
+							value="{{ !empty($data) ? $data->biaya : '' }}" 
 							class="form-control">
 					</div>
 				</div>
 			</div>
+			@if(empty($data) or empty($data->biaya) )
 			<div style="float: right;">
 				<button class="btn btn-success" type="submit">Save</button>
 			</div>
+			@endif
 			<div class="clearfix"></div>
 		</div>
 	</form>
